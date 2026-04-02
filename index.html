@@ -134,37 +134,34 @@
           width: 20px;
         }
       }
-     .topo {
+     #topoBtn {
+  display: none; /* começa escondido */
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 50px;       /* largura da imagem */
-  height: 50px;      /* altura da imagem */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  cursor: pointer;
   transition: 0.3s;
-  background: white;  /* se quiser o fundo */
+  background: white;
 }
 
-.topo img {
-  background-color: red;
-  width: 70%;
-  height: 70%;
+#topoBtn img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-.topo:hover {
+#topoBtn:hover {
   transform: scale(1.1);
 }
     </style>
 
     <title>Consulta de Códigos Bancários (TED)</title>
   </head>
-<a href="#" class="topo">
+<a href="#" id="topoBtn">
   <img src="img/banco.png" alt="Voltar ao topo" />
 </a>
   <body>
@@ -282,7 +279,7 @@
           <td><strong>15</strong></td>
           <td><strong>Banco Neon</strong></td>
           <td><img src="img/neon.png" /></td>
-          <td><strong>655</strong></td>
+          <td><strong>536</strong></td>
         </tr>
         </tr>
           <td><strong>16</strong></td>
