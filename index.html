@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="shortcut icon" href="img/banco.png" type="image/x-icon" />
+    <style>
+      h1 {
+        background-color: red;
+        color: white;
+        padding: 5px;
+        margin: 0;
+      }
+
+      body {
+       
+    cursor: url('img/dinheiro.png'), pointer;
+
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      table th,
+      td {
+        background-color: white;
+        border: 1px solid black;
+        color: red;
+      }
+
+      footer {
+        padding: 20px;
+        margin: 0;
+        background-color: red;
+        color: white;
+      }
+
+      hr {
+        color: red;
+      }
+
+      img {
+        width: 30px;
+        border-radius: 20px;
+        margin: 4px;
+      }
+
+      .ted {
+      font-style: italic;
+        background-color: black;
+        color: white;
+      }
+      .ID {
+        font-style: italic;
+        background-color: black;
+        color: white;
+      }
+      .logo {
+        font-style: italic;
+        background-color: black;
+        color: white;
+      }
+      .Nome {
+        font-style: italic;
+        background-color: black;
+        color: white;
+      }
+
+      .number {
+        color: red;
+      }
+
+      th,
+      td {
+        
+        text-align: center;
+      }
+      td:hover {
+    background-color: yellow;
+    transition: 0.3s;
+}
+p{
+    background-color: yellow;
+    color: grey;
+    margin: 0px;
+}
+h1{
+    position: sticky;
+    top: 0;
+    background: red;
+}
+    p :hover{
+        color: white;
+        background-color: red;
+        transition:o.3s;
+    }
+    
+.Nome::before {
+    content: "🏦 ";
+
+}
+
+.logo::before {
+    content: "🖼️ ";
+}
+
+.ted::before {
+    content: "💳 ";
+}
+
+.ID::before {
+    content: "🆔 ";
+}
+
+
+    </style>
+    <title>Consulta de Códigos Bancários (TED)</title>
+  </head>
+
+  <body>
+    <h1>🏦 Consulta de Códigos Bancários (TED)</h1>
+    <!--<p><strong>Use essa tabela para encontrar o código do banco ao fazer transferências TED.</strong></p> -->
+
+    <table border="6">
+      <thead>
+        <tr>
+          <th class="ID">ID</th>
+          <th class="Nome">Nome</th>
+          <th class="logo">Logo</th>
+          <th class="ted">Ted</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Banco do Brasil</strong></td>
+          <td><img src="img/bancodobrasil.png" /></td>
+          <td><strong>001</strong></td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td><strong>Bradesco</strong></td>
+          <td><img src="img/bradesco.png" /></td>
+          <td class="number"><strong>237</strong></td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td><strong>Itaú</strong></td>
+          <td><img src="img/Itaulogo.png" /></td>
+          <td><strong>341</strong></td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td><strong>Santander</strong></td>
+          <td>
+            <img
+              src="img/Santander_Argentina_Logo.png"
+              height="20"
+              width="20"
+            />
+          </td>
+          <td> <strong>033</strong></td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td><strong>Caixa Econômica Federal</strong></td>
+          <td><img src="img/caixa.png" /></td>
+          <td><strong>104</strong></td>
+        </tr>
+
+        <tr>
+          <td>6</td>
+          <td ><strong>Nubank</strong></td>
+          <td><img src="img/nubank.png.png" height="20" width="20" /></td>
+          <td><strong>260</strong></td>
+        </tr>
+
+        <tr>
+          <td>7</td>
+          <td><strong>Banco Inter</strong></td>
+          <td><img src="img/inter.png" /></td>
+          <td><strong>077</strong></td>
+        </tr>
+
+        <tr>
+          <td>8</td>
+          <td><strong>C6 Bank</strong></td>
+          <td><img src="img/c6.png" /></td>
+          <td><strong>336</strong></td>
+        </tr>
+
+        <tr>
+          <td>9</td>
+          <td><strong>BTG Pactual</strong></td>
+          <td><img src="img/BTGPactual.png" /></td>
+          <td><strong>208</strong></td>
+        </tr>
+
+        <tr>
+          <td>10</td>
+          <td><strong>Banco Safra</strong></td>
+          <td><img src="img/banco-safra-logo.png" /></td>
+          <td><strong>422</strong></td>
+        </tr>
+
+        <tr>
+          <td>11</td>
+          <td><strong>PagBank (PagSeguro)</strong></td>
+          <td><img src="img/pagbank-logo.png" /></td>
+          <td><strong>290</strong></td>
+        </tr>
+
+        <tr>
+          <td>12</td>
+          <td><strong>PicPay</strong></td>
+          <td><img src="img/picpay.png" /></td>
+          <td><strong>380</strong></td>
+        </tr>
+
+        <tr>
+          <td>13</td>
+          <td><strong>Mercado Pago</strong></td>
+          <td><img src="img/mercadopago.png" /></td>
+          <td><strong>323</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+
+  <footer>
+    <strong
+      ><em
+        >Todos os direitos reservados <br />
+        Victor Colombo copyright ©</em
+      ></strong
+    >
+  </footer>
+</html>
