@@ -160,6 +160,43 @@
 .topo:hover {
   transform: scale(1.1);
 }
+/* 🔥 RESPONSIVO */
+@media (max-width: 768px) {
+  table {
+    display: block;        /* faz a tabela se comportar como bloco */
+    overflow-x: auto;      /* permite rolagem horizontal se ficar larga */
+    white-space: nowrap;   /* evita quebra de texto dentro das células */
+    width: 100%;           /* garante que ocupe a largura da tela */
+  }
+
+  img {
+    width: 25px;           /* diminui as imagens na tabela */
+  }
+
+  h1 {
+    font-size: 18px;       /* título menor */
+  }
+
+  th, td {
+    font-size: 14px;       /* texto menor nas células */
+    padding: 5px;          /* menos espaçamento */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 16px;       /* título ainda menor */
+  }
+
+  th, td {
+    font-size: 12px;       /* texto ainda menor nas células */
+    padding: 4px;
+  }
+
+  img {
+    width: 20px;           /* imagens menores */
+  }
+}
     </style>
 
     <title>Consulta de Códigos Bancários (TED)</title>
