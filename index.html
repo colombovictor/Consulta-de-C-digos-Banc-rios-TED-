@@ -3,16 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
 
     <link rel="shortcut icon" href="img/banco.png" type="image/x-icon" />
-
     <style>
-      /* (SEU CSS ORIGINAL — NÃO ALTEREI NADA IMPORTANTE) */
       h1 {
         background-color: red;
         color: white;
@@ -63,70 +60,181 @@
         color: white;
       }
 
-      td:hover {
+      .number {
+        color: red;
+      }
+td:hover {
         background-color: yellow;
         transition: 0.3s;
       }
+     
 
-      .Nome::before { content: "🏦 "; }
-      .logo::before { content: "🖼️ "; }
-      .ted::before { content: "💳 "; }
-      .ID::before { content: "🆔 "; }
-
-      .topo {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        cursor: pointer;
-        background: white;
+      p {
+        background-color: yellow;
+        color: grey;
+        margin: 0px;
       }
 
-      .topo img {
-        width: 70%;
-      }
-
-      .tooltip {
-        position: relative;
-        cursor: pointer;
-      }
-
-      .tooltip::after {
-        content: attr(data-msg);
-        position: absolute;
-        bottom: 120%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: white;
-        color: red;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        opacity: 0;
+      p:hover {
+        color: white;
+        background-color: red;
         transition: 0.3s;
       }
 
-      .tooltip:hover::after {
-        opacity: 1;
+      .Nome::before {
+        content: "🏦 ";
       }
+
+      .logo::before {
+        content: "🖼️ ";
+      }
+
+      .ted::before {
+        content: "💳 ";
+      }
+
+      .ID::before {
+        content: "🆔 ";
+      }
+
+      /* 🔥 RESPONSIVO */
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+          width: 100%;
+        }
+
+        img {
+          width: 25px;
+        }
+
+        h1 {
+          font-size: 18px;
+        }
+
+        th, td {
+          font-size: 14px;
+          padding: 5px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 16px;
+        }
+
+        th, td {
+          font-size: 12px;
+          padding: 4px;
+        }
+
+        img {
+          width: 20px;
+        }
+      }
+     .topo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;       /* largura da imagem */
+  height: 50px;      /* altura da imagem */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: 0.3s;
+  background: white;  /* se quiser o fundo */
+}
+
+.topo img {
+  background-color: red;
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.topo:hover {
+  transform: scale(1.1);
+}
+/* 🔥 RESPONSIVO */
+@media (max-width: 768px) {
+  table {
+    display: block;        /* faz a tabela se comportar como bloco */
+    overflow-x: auto;      /* permite rolagem horizontal se ficar larga */
+    white-space: nowrap;   /* evita quebra de texto dentro das células */
+    width: 100%;           /* garante que ocupe a largura da tela */
+  }
+
+  img {
+    width: 25px;           /* diminui as imagens na tabela */
+  }
+
+  h1 {
+    font-size: 18px;       /* título menor */
+  }
+
+  th, td {
+    font-size: 14px;       /* texto menor nas células */
+    padding: 5px;          /* menos espaçamento */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 16px;       /* título ainda menor */
+  }
+
+  th, td {
+    font-size: 12px;       /* texto ainda menor nas células */
+    padding: 4px;
+  }
+
+  img {
+    width: 20px;           /* imagens menores */
+  }
+}
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+/* mensagem escondida */
+.tooltip::after {
+  content: attr(data-msg);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background: white;
+  color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  
+  font-size: 12px;
+  white-space: nowrap;
+  
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+/* aparece no hover */
+.tooltip:hover::after {
+  opacity: 1;
+}
     </style>
 
     <title>Consulta de Códigos Bancários (TED)</title>
   </head>
-
+<a href="#" class="topo">
+  <img src="img/banco.png" alt="Voltar ao topo" />
+</a>
   <body>
-
-    <!-- ✅ botão agora dentro do body -->
-    <a href="#" class="topo">
-      <img src="img/banco.png" alt="Voltar ao topo" />
-    </a>
-
     <h1>🏦 Consulta de Códigos Bancários (TED)</h1>
     <p><strong>Consulte rapidamente os códigos TED dos principais bancos do Brasil.</strong></p>
 
@@ -141,71 +249,266 @@
       </thead>
 
       <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td><strong>Banco do Brasil</strong></td>
+          <td><img src="img/bancodobrasil.png" /></td>
+          <td><strong>001</strong></td>
+        </tr>
 
         <tr>
-          <td>33</td>
-          <td>Banco Votorantim</td>
+          <td><strong>2</strong></td>
+          <td><strong>Bradesco</strong></td>
+          <td><img src="img/bradesco.png" /></td>
+          <td class="number"><strong>237</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>3</strong></td>
+          <td><strong>Itaú</strong></td>
+          <td><img src="img/Itaulogo.png" /></td>
+          <td><strong>341</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>4</strong></td>
+          <td><strong>Santander</strong></td>
+          <td>
+            <img src="img/Santander_Argentina_Logo.png" height="20" width="20" />
+          </td>
+          <td><strong>033</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>5</strong></td>
+          <td><strong>Caixa Econômica Federal</strong></td>
+          <td><img src="img/caixa.png" /></td>
+          <td><strong>104</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>6</strong></td>
+          <td><strong>Nubank</strong></td>
+          <td><img src="img/nubank.png.png" /></td>
+          <td><strong>260</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>7</strong></td>
+          <td><strong>Banco Inter</strong></td>
+          <td><img src="img/inter.png" /></td>
+          <td><strong>077</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>8</strong></td>
+          <td><strong>C6 Bank</strong></td>
+          <td><img src="img/c6.png" /></td>
+          <td><strong>336</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>9</strong></td>
+          <td><strong>BTG Pactual</strong></td>
+          <td><img src="img/BTGPactual.png" /></td>
+          <td><strong>208</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>10</strong></td>
+          <td><strong>Banco Safra</strong></td>
+          <td><img src="img/banco-safra-logo.png" /></td>
+          <td><strong>422</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>11</strong></td>
+          <td><strong>PagBank (PagSeguro)</strong></td>
+          <td><img src="img/pagbank-logo.png" /></td>
+          <td><strong>290</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>12</strong></td>
+          <td><strong>PicPay</strong></td>
+          <td><img src="img/picpay.png" /></td>
+          <td><strong>380</strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>13</strong></td>
+          <td><strong>Mercado Pago</strong></td>
+          <td><img src="img/mercadopago.png" /></td>
+          <td><strong>323</strong></td>
+        </tr>
+          <td><strong>14</strong></td>
+          <td><strong>Sicredi</strong></td>
+          <td><img src="img/sicredi.png.webp" /></td>
+          <td><strong>748</strong></td>
+        </tr>
+        </tr>
+          <td><strong>15</strong></td>
+          <td><strong>Banco Neon</strong></td>
+          <td><img src="img/neon.png" /></td>
+          <td><strong>536</strong></td>
+        </tr>
+        </tr>
+          <td><strong>16</strong></td>
+          <td><strong>Banco BMG</strong></td>
+          <td><img src="img/bmg.png" /></td>
+          <td><strong>318</strong></td>
+        </tr>
+        </tr>
+          <td><strong>17</strong></td>
+          <td><strong>Banco Pan</strong></td>
+          <td><img src="img/pan.png" /></td>
+          <td><strong>623</strong></td>
+        </tr>
+        </tr>
+          <td><strong>18</strong></td>
+          <td><strong>Banco Original</strong></td>
+          <td><img src="img/bancooriginal.png" /></td>
+          <td><strong>212</strong></td>
+        </tr>
+        </tr>
+          <td><strong>19</strong></td>
+          <td><strong>Banco BS2</strong></td>
+          <td><img src="img/bs2.png" /></td>
+          <td><strong>218</strong></td>
+        </tr>
+        </tr>
+          <td><strong>20</strong></td>
+          <td><strong>Banco Sofisa Direto</strong></td>
+          <td><img src="img/sofisadireto.png" /></td>
+          <td><strong>637</strong></td>
+        </tr>
+        </tr>
+          <td><strong>21</strong></td>
+          <td><strong>Banco Digio</strong></td>
+          <td><img src="img/digio.png" /></td>
+          <td><strong>335</strong></td>
+        </tr>
+        </tr>
+          <td><strong>22</strong></td>
+          <td><strong>Banco BRB</strong></td>
+          <td><img src="img/brb.png" /></td>
+          <td><strong>070</strong></td>
+        </tr>
+        </tr>
+          <td><strong>23</strong></td>
+          <td><strong>Banco Sicoob</strong></td>
+          <td><img src="img/Sicoob.png" /></td>
+          <td><strong>756</strong></td>
+        </tr>
+        </tr>
+          <td><strong>24</strong></td>
+          <td><strong>Banco ABC</strong></td>
+          <td><img src="img/abc.png" /></td>
+          <td><strong>246</strong></td>
+        </tr>
+        </tr>
+          <td><strong>25</strong></td>
+          <td><strong>Banco ALFA</strong></td>
+          <td><img src="img/alfa.png" /></td>
+          <td><strong>025</strong></td>
+        </tr>
+         </tr>
+          <td><strong>26</strong></td>
+          <td><strong>Banco BNP</strong></td>
+          <td><img src="img/bnp.png" /></td>
+          <td><strong>752</strong></td>
+        </tr>
+        </tr>
+          <td><strong>27</strong></td>
+          <td><strong>Banco Citi</strong></td>
+          <td><img src="img/Citi.logo.png" /></td>
+          <td><strong>745</strong></td>
+        </tr>
+        </tr>
+          <td><strong>28</strong></td>
+          <td><strong>Deutsche Bank</strong></td>
+          <td><img src="img/Deutsche.png" /></td>
+          <td><strong>487</strong></td>
+        </tr>
+        </tr>
+          <td><strong>29</strong></td>
+          <td><strong>Deutsche Celetem</strong></td>
+          <td><img src="img/cetelem.png" /></td>
+          <td><strong>739</strong></td>
+        </tr>
+         </tr>
+          <td><strong>30</strong></td>
+          <td><strong>Banco BOCOM BBM</strong></td>
+          <td><img src="img/bbm.png" /></td>
+          <td><strong>107</strong></td>
+        </tr>
+        </tr>
+         </tr>
+          <td><strong>31</strong></td>
+          <td><strong>Banco Modal</strong></td>
+          <td><img src="img/modal.png" /></td>
+          <td><strong>746</strong></td>
+        </tr>
+        </tr>
+          <td><strong>32</strong></td>
+          <td><strong>Banco Fibra</strong></td>
+          <td><img src="img/fibra.png" /></td>
+          <td><strong>224</strong></td>
+        </tr>
+         <tr>
+          <td><strong>33</strong></td>
+          <td><strong>Banco Votorantim</strong></td>
           <td><img src="img/bv.png" /></td>
           <td class="tooltip" data-msg="Mesmo código usado pelo Banco Neon">
             <strong>655</strong>
           </td>
         </tr>
-
-        <tr>
-          <td>34</td>
-          <td>Banco Daycoval</td>
+         </tr>
+          <td><strong>34</strong></td>
+          <td><strong>Banco Daycoval</strong></td>
           <td><img src="img/day.png" /></td>
           <td><strong>707</strong></td>
         </tr>
-
-        <tr>
-          <td>35</td>
-          <td>Banco Pine</td>
+         </tr>
+          <td><strong>35</strong></td>
+          <td><strong>Banco Pine</strong></td>
           <td><img src="img/pine.png" /></td>
           <td><strong>643</strong></td>
         </tr>
-
-        <tr>
-          <td>36</td>
-          <td>Banco Renner</td>
+        </tr>
+          <td><strong>36</strong></td>
+          <td><strong>Banco Renner</strong></td>
           <td><img src="img/renner.png" /></td>
           <td><strong>654</strong></td>
         </tr>
-
-        <tr>
-          <td>37</td>
-          <td>Banco JP Morgan</td>
+        </tr>
+          <td><strong>37</strong></td>
+          <td><strong>Banco JP Morgan</strong></td>
           <td><img src="img/jp.png" /></td>
           <td><strong>376</strong></td>
         </tr>
-
-        <tr>
-          <td>38</td>
-          <td>Bank of America</td>
+         </tr>
+          <td><strong>38</strong></td>
+          <td><strong>Bank of America</strong></td>
           <td><img src="img/america.png" /></td>
           <td><strong>755</strong></td>
+        </tr> 
         </tr>
-
-        <tr>
-          <td>39</td>
-          <td>Banco Credit Suisse</td>
+          <td><strong>39</strong></td>
+          <td><strong>Banco Credit Suisse</strong></td>
           <td><img src="img/credit.png" /></td>
           <td><strong>505</strong></td>
+        </tr> 
         </tr>
-
-        <tr>
-          <td>40</td>
-          <td>Banco ING Bank</td>
+          <td><strong>40</strong></td>
+          <td><strong>Banco ING Bank</strong></td>
           <td><img src="img/ing.png" /></td>
           <td><strong>492</strong></td>
-        </tr>
-
+        </tr> 
       </tbody>
-    </table>
-
+    </table>   
   </body>
-
   <footer>
-    <strong><em>© 2026 Victor Colombo. Todos os direitos reservados.</em></strong>
+    <strong><em>© 2026 Victor Colombo. <br> Todos os direitos reservados. Consulta de códigos TED de todos os bancos do Brasil.</em></strong>
   </footer>
 </html>
