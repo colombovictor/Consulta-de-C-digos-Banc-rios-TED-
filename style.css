@@ -190,26 +190,30 @@ td:hover {
   cursor: pointer;
 }
 
+/* RESET IMPORTANTE */
 .popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+
   background: rgba(0,0,0,0.6);
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 9999; /* MUITO IMPORTANTE */
 }
 
-/* esconde o checkbox */
+/* esconder checkbox */
 #fechar-popup {
   display: none;
 }
 
-/* quando clicar, esconde o popup */
-#fechar-popup:checked ~ .popup {
+/* quando clicar, some */
+#fechar-popup:checked + .popup {
   display: none;
 }
 
@@ -218,6 +222,8 @@ td:hover {
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  width: 90%;
+  max-width: 300px;
 }
 
 .btn {
