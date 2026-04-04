@@ -10,136 +10,110 @@
 
     <link rel="shortcut icon" href="img/banco.png" type="image/x-icon" />
     <style>
-      h1 {
-        background-color: red;
-        color: white;
-        padding: 5px;
-        margin: 0;
-        position: sticky;
-        top: 0;
-      }
+   /* RESET BÁSICO */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      body {
-        cursor: url('img/dinheiro.png'), pointer;
-        text-align: center;
-      }
+/* BODY */
+body {
+  cursor: url('img/dinheiro.png'), pointer;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
 
-      table {
-        width: 100%;
-        margin: 0 auto;
-        border-collapse: collapse;
-      }
+/* HEADER */
+h1 {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  font-size: 22px;
+  z-index: 10;
+}
 
-      table th,
-      td {
-        background-color: white;
-        border: 1px solid black;
-        color: red;
-        text-align: center;
-      }
+/* TABELA */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
 
-      footer {
-        padding: 20px;
-        margin: 0;
-        background-color: red;
-        color: white;
-      }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* evita quebrar layout */
+}
 
-      img {
-        width: 30px;
-        border-radius: 20px;
-        margin: 4px;
-      }
+th, td {
+  background-color: white;
+  border: 1px solid black;
+  color: red;
+  text-align: center;
+  padding: 8px;
+}
 
-      .ted,
-      .ID,
-      .logo,
-      .Nome {
-        font-style: italic;
-        background-color: black;
-        color: white;
-      }
-
-      .number {
-        color: red;
-      }
+/* HOVER */
 td:hover {
-        background-color: yellow;
-        transition: 0.3s;
-      }
-     
+  background-color: yellow;
+  transition: 0.3s;
+}
 
-      p {
-        background-color: yellow;
-        color: grey;
-        margin: 0px;
-      }
+/* FOOTER */
+footer {
+  padding: 20px;
+  background-color: red;
+  color: white;
+}
 
-      p:hover {
-        color: white;
-        background-color: red;
-        transition: 0.3s;
-      }
+/* IMAGENS */
+img {
+  width: 30px;
+  border-radius: 50%;
+  margin: 4px;
+}
 
-      .Nome::before {
-        content: "🏦 ";
-      }
+/* CLASSES */
+.ted,
+.ID,
+.logo,
+.Nome {
+  font-style: italic;
+  background-color: black;
+  color: white;
+}
 
-      .logo::before {
-        content: "🖼️ ";
-      }
+.number {
+  color: red;
+}
 
-      .ted::before {
-        content: "💳 ";
-      }
+/* PARÁGRAFO */
+p {
+  background-color: yellow;
+  color: grey;
+}
 
-      .ID::before {
-        content: "🆔 ";
-      }
+p:hover {
+  color: white;
+  background-color: red;
+  transition: 0.3s;
+}
 
-      /* 🔥 RESPONSIVO */
-      @media (max-width: 768px) {
-        table {
-          display: block;
-          overflow-x: auto;
-          white-space: nowrap;
-          width: 100%;
-        }
+/* ÍCONES */
+.Nome::before { content: "🏦 "; }
+.logo::before { content: "🖼️ "; }
+.ted::before { content: "💳 "; }
+.ID::before { content: "🆔 "; }
 
-        img {
-          width: 25px;
-        }
-
-        h1 {
-          font-size: 18px;
-        }
-
-        th, td {
-          font-size: 14px;
-          padding: 5px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        h1 {
-          font-size: 16px;
-        }
-
-        th, td {
-          font-size: 12px;
-          padding: 4px;
-        }
-
-        img {
-          width: 20px;
-        }
-      }
-     .topo {
+/* BOTÃO TOPO */
+.topo {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 50px;       /* largura da imagem */
-  height: 50px;      /* altura da imagem */
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,7 +121,7 @@ td:hover {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   cursor: pointer;
   transition: 0.3s;
-  background: white;  /* se quiser o fundo */
+  background: white;
 }
 
 .topo img {
@@ -160,46 +134,42 @@ td:hover {
 .topo:hover {
   transform: scale(1.1);
 }
-/* 🔥 RESPONSIVO */
+
+/* TOOLTIP */
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+/* 🔥 RESPONSIVIDADE */
 @media (max-width: 768px) {
-  table {
-    display: block;        /* faz a tabela se comportar como bloco */
-    overflow-x: auto;      /* permite rolagem horizontal se ficar larga */
-    white-space: nowrap;   /* evita quebra de texto dentro das células */
-    width: 100%;           /* garante que ocupe a largura da tela */
-  }
-
-  img {
-    width: 25px;           /* diminui as imagens na tabela */
-  }
-
   h1 {
-    font-size: 18px;       /* título menor */
+    font-size: 18px;
   }
 
   th, td {
-    font-size: 14px;       /* texto menor nas células */
-    padding: 5px;          /* menos espaçamento */
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  img {
+    width: 25px;
   }
 }
 
 @media (max-width: 480px) {
   h1 {
-    font-size: 16px;       /* título ainda menor */
+    font-size: 16px;
   }
 
   th, td {
-    font-size: 12px;       /* texto ainda menor nas células */
+    font-size: 12px;
     padding: 4px;
   }
 
   img {
-    width: 20px;           /* imagens menores */
+    width: 20px;
   }
-}
-.tooltip {
-  position: relative;
-  cursor: pointer;
 }
     </style>
 
