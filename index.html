@@ -201,32 +201,6 @@ td:hover {
   position: relative;
   cursor: pointer;
 }
-
-/* mensagem escondida */
-.tooltip::after {
-  content: attr(data-msg);
-  position: absolute;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  
-  background: white;
-  color: red;
-  padding: 5px 10px;
-  border-radius: 5px;
-  
-  font-size: 12px;
-  white-space: nowrap;
-  
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.3s;
-}
-
-/* aparece no hover */
-.tooltip:hover::after {
-  opacity: 60;
-}
     </style>
 
     <title>Consulta de Códigos Bancários (TED)</title>
@@ -459,8 +433,9 @@ td:hover {
           <td><strong>33</strong></td>
           <td><strong>Banco Votorantim</strong></td>
           <td><img src="img/bv.png" /></td>
-          <td class="tooltip" data-msg="Mesmo código usado pelo Banco Neon">
-            <strong>655</strong>
+          <td>
+            <strong>655  <br>
+              "código usado pelo Banco Neon"</strong>
           </td>
         </tr>
          </tr>
