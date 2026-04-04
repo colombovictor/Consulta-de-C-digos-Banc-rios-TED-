@@ -205,3 +205,10 @@ td:hover {
 #popup:target {
   display: flex;
 }
+
+.conteudo {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
