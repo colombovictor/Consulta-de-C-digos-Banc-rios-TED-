@@ -10,6 +10,7 @@ h1 {
       body {
         cursor: url('img/dinheiro.png'), pointer;
         text-align: center;
+        display: block !important
       }
 
       table {
