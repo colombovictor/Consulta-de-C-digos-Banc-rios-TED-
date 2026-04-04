@@ -197,8 +197,35 @@ td:hover {
     width: 20px;           /* imagens menores */
   }
 }
-.voto{
-  color: purple;
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+/* mensagem escondida */
+.tooltip::after {
+  content: attr(data-msg);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  
+  font-size: 12px;
+  white-space: nowrap;
+  
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+/* aparece no hover */
+.tooltip:hover::after {
+  opacity: 1;
 }
     </style>
 
@@ -432,7 +459,8 @@ td:hover {
           <td><strong>33</strong></td>
           <td><strong>Banco Votorantim</strong></td>
           <td><img src="img/bv.png" /></td>
-          <td><strong>655<br class="voto">(Mesmo código do Neon)</strong></td>
+          <td class="tooltip"data-msg="Mesmo código usado pelo Banco Neon"></td>
+          <strong>655</strong></td>
         </tr>
          </tr>
           <td><strong>34</strong></td>
