@@ -192,3 +192,6 @@ td:hover {
 tbody tr:nth-child(even) td {
   background-color: whitesmoke;
 }
+tbody :hover{
+  background-color: red;
+}
