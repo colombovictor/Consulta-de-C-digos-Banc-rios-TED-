@@ -52,7 +52,7 @@ h1 {
         color: red;
       }
 td:hover {
-        background-color: black;
+        background-color: lightgoldenrodyellow;
         transition: 0.3s;
       }
      
