@@ -3,6 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+// verifica se já viu
+window.onload = function() {
+  if (!localStorage.getItem("popupVisto")) {
+    document.getElementById("popup").classList.add("ativo");
+  }
+}
+
+// fecha e salva no navegador
+function fecharPopup() {
+  document.getElementById("popup").classList.remove("ativo");
+  localStorage.setItem("popupVisto", "true");
+}
+</script>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"rel="stylesheet"/>
 <link rel="stylesheet" href="style.css">
@@ -14,7 +29,13 @@
   <img src="img/banco.png" alt="Voltar ao topo" />
 </a>
   <body>
-    
+    <div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="fechar" onclick="fecharPopup()">✖</span>
+    <h2>Bem-vindo 👋</h2>
+    <p>Essa mensagem aparece só na primeira vez</p>
+  </div>
+</div>
  
     <h1>🏦 Consulta de Códigos Bancários (TED)</h1>
     <p><strong>Consulte rapidamente os códigos TED dos principais bancos do Brasil.</strong></p>
