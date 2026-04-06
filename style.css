@@ -190,5 +190,5 @@ td:hover {
   cursor: pointer;
 }
 tbody tr:nth-child(even) td {
-  background-color: lightgray;
+  background-color: whitesmoke;
 }
