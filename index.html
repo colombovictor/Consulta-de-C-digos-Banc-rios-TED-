@@ -9,17 +9,6 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"rel="stylesheet"/>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img/banco.png" type="image/x-icon" />
-    <script>
-async function pegarCotacao() {
-  const resposta = await fetch("https://brapi.dev/api/quote/BBAS3,ITUB4");
-  const dados = await resposta.json();
-
-  document.getElementById("bbas3").innerText = "R$ " + dados.results[0].regularMarketPrice;
-  document.getElementById("itub4").innerText = "R$ " + dados.results[1].regularMarketPrice;
-}
-
-pegarCotacao();
-</script>
     <title>Consulta de Códigos Bancários (TED)</title>
   </head>
 <a href="#" class="topo">
@@ -33,7 +22,6 @@ pegarCotacao();
         <tr>
           <th class="ID">ID</th>
           <th class="Nome">Nome</th>
-          <th class="Valor das Ações">Nome</th>
           <th class="logo">Logo</th>
           <th class="ted">Ted</th>
         </tr>
@@ -42,7 +30,6 @@ pegarCotacao();
         <tr>
           <td><strong>1</strong></td>
           <td><strong>Banco do Brasil</strong></td>
-          <td id="bbas3">Carregando...</td>
           <td><img src="img/bancodobrasil.png" /></td>
           <td><strong>001</strong></td>
         </tr>
