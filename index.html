@@ -23,6 +23,7 @@
     --line:#D6DCDD;
     --hover-row:#F1E9D8;
     --danger:#8A2E2E;
+    --warn:#8A6A1E;
     --shadow: 0 8px 24px rgba(11,31,51,0.08);
   }
 
@@ -38,6 +39,7 @@
     --line:#25394D;
     --hover-row:#1C3345;
     --danger:#E08A78;
+    --warn:#E0C178;
     --shadow: 0 8px 24px rgba(0,0,0,0.4);
   }
 
@@ -141,8 +143,8 @@
   .icon-btn:hover{ transform:rotate(12deg); }
   .icon-btn svg{ pointer-events:none; }
   .icon-btn .icon-sun{ display:none; }
-  html[data-theme="dark"] .icon-btn .icon-moon{ display:none; }
   html[data-theme="dark"] .icon-btn .icon-sun{ display:block; }
+  html[data-theme="dark"] .icon-btn .icon-moon{ display:none; }
 
   .recent-wrap{
     max-width:1000px; margin:10px auto 0; padding:0 24px;
@@ -158,6 +160,10 @@
     border:1px solid var(--line); border-radius:999px; padding:5px 12px; cursor:pointer;
   }
   .recent-chip:hover{ border-color:var(--gold); color:var(--text); }
+  .recent-clear{
+    font-size:12px; color:var(--text-muted); background:none; border:none;
+    cursor:pointer; text-decoration:underline; padding:4px 2px;
+  }
 
   .action-row{
     max-width:1000px; margin:14px auto 0; padding:0 24px;
@@ -175,10 +181,11 @@
   .chip:hover{ border-color:var(--gold); }
   .chip[aria-pressed="true"]{ background:var(--brand-ink); color:var(--on-dark); border-color:var(--brand-ink); }
   .chip[aria-pressed="true"] svg{ fill:var(--gold-soft); stroke:var(--gold-soft); }
+  .chip:disabled{ opacity:.45; cursor:not-allowed; }
 
   .stats-strip{
     max-width:1000px; margin:18px auto 0; padding:0 24px;
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;
   }
   .stat-card{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; text-align:left; }
   .stat-label{
@@ -186,7 +193,8 @@
     text-transform:uppercase; color:var(--text-muted); margin:0 0 6px;
   }
   .stat-value{ font-family:'Fraunces', serif; font-size:20px; font-weight:600; color:var(--text); margin:0; }
-  @media (max-width:640px){ .stats-strip{ grid-template-columns:1fr; } }
+  @media (max-width:820px){ .stats-strip{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:480px){ .stats-strip{ grid-template-columns:1fr; } }
 
   .add-bank-card{
     max-width:1000px; margin:14px auto 0; padding:16px 18px;
@@ -201,6 +209,11 @@
     background:var(--page); color:var(--text); font-family:'IBM Plex Sans', sans-serif; font-size:14px;
   }
   .add-bank-card .btn-row{ display:flex; gap:8px; }
+  .add-bank-card .form-title{
+    flex:1 1 100%; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); margin:0 0 -2px;
+  }
+  .field-error{ font-size:11.5px; color:var(--danger); min-height:14px; }
   .btn-primary, .btn-secondary{
     border:none; border-radius:6px; padding:9px 16px; font-size:13.5px; font-weight:600;
     cursor:pointer; font-family:'IBM Plex Sans', sans-serif;
@@ -208,17 +221,18 @@
   .btn-primary{ background:var(--brand-ink); color:var(--on-dark); }
   .btn-secondary{ background:var(--surface-alt); color:var(--text-muted); }
 
-  .code-wrap{ display:inline-flex; align-items:center; gap:8px; justify-content:flex-end; }
+  .code-wrap{ display:inline-flex; align-items:center; gap:6px; justify-content:flex-end; }
 
-  .copy-btn, .remove-btn{
+  .copy-btn, .remove-btn, .edit-btn{
     flex:0 0 auto; width:24px; height:24px; border-radius:6px; border:1px solid var(--line);
     background:var(--surface-alt); color:var(--text-muted); display:inline-flex; align-items:center;
     justify-content:center; cursor:pointer; padding:0; transition:background .15s ease, color .15s ease;
   }
   .copy-btn:hover{ background:var(--gold-soft); color:var(--brand-ink); }
   .copy-btn.copied{ background:var(--brand-ink); color:var(--on-dark); border-color:var(--brand-ink); }
-  .copy-btn svg, .remove-btn svg{ width:13px; height:13px; pointer-events:none; }
+  .copy-btn svg, .remove-btn svg, .edit-btn svg{ width:13px; height:13px; pointer-events:none; }
   .remove-btn:hover{ background:var(--danger); color:#fff; border-color:var(--danger); }
+  .edit-btn:hover{ background:var(--gold-soft); color:var(--brand-ink); }
 
   .fav-btn{
     flex:0 0 auto; width:24px; height:24px; border:none; background:transparent; color:var(--text-muted);
@@ -233,6 +247,14 @@
     letter-spacing:.05em; color:var(--text-muted); background:var(--surface-alt);
     border-radius:5px; padding:2px 6px; margin-left:8px; white-space:nowrap;
   }
+
+  .dup-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:16px; height:16px; border-radius:50%; background:var(--warn); color:var(--brand-ink);
+    font-size:10px; font-weight:700; margin-left:6px; cursor:help; flex:0 0 auto;
+  }
+
+  mark{ background:var(--gold-soft); color:var(--brand-ink); border-radius:3px; padding:0 1px; }
 
   main{ max-width:1000px; margin:20px auto 80px; padding:0 24px; }
 
@@ -270,7 +292,8 @@
     background:var(--brand-ink); color:var(--gold-soft);
   }
 
-  .bank-name{ font-weight:500; color:var(--text); }
+  .bank-name{ font-weight:500; color:var(--text); cursor:pointer; }
+  .bank-name:hover{ text-decoration:underline dotted; }
 
   td.code-cell{
     text-align:right; font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:15px;
@@ -282,9 +305,15 @@
     font-family:'IBM Plex Mono', monospace; font-size:13px;
   }
   .empty-state.show{ display:block; }
+  .empty-state button{ margin-top:10px; }
 
   footer{ text-align:center; padding:26px 24px 40px; color:var(--text-muted); font-size:12.5px; font-family:'IBM Plex Mono', monospace; }
   footer strong{ color:var(--text); }
+  footer .shortcuts-hint{ margin-top:6px; opacity:.75; }
+  footer kbd{
+    font-family:'IBM Plex Mono', monospace; background:var(--surface-alt); border:1px solid var(--line);
+    border-radius:4px; padding:1px 5px; font-size:11px;
+  }
 
   .to-top{
     position:fixed; bottom:22px; right:22px; width:46px; height:46px; border-radius:50%;
@@ -295,6 +324,30 @@
   .to-top:hover{ transform:translateY(-3px); }
   .to-top img{ width:70%; height:70%; object-fit:contain; border-radius:50%; }
 
+  .toast{
+    position:fixed; left:50%; bottom:80px; transform:translate(-50%, 12px);
+    background:var(--brand-ink); color:var(--on-dark); font-size:13.5px;
+    padding:10px 18px; border-radius:8px; box-shadow:var(--shadow);
+    opacity:0; pointer-events:none; transition:opacity .18s ease, transform .18s ease;
+    font-family:'IBM Plex Sans', sans-serif; z-index:50; border:1px solid var(--gold);
+  }
+  .toast.show{ opacity:1; transform:translate(-50%, 0); }
+
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(11,31,51,0.55); backdrop-filter:blur(1px);
+    display:none; align-items:center; justify-content:center; z-index:80; padding:20px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    box-shadow:var(--shadow); max-width:440px; width:100%; padding:22px 24px;
+  }
+  .modal h2{ font-family:'Fraunces', serif; font-size:20px; margin:0 0 6px; color:var(--text); }
+  .modal p{ font-size:13.5px; color:var(--text-muted); line-height:1.55; margin:0 0 16px; }
+  .modal .btn-row{ display:flex; justify-content:flex-end; gap:10px; }
+  .shortcuts-list{ list-style:none; padding:0; margin:0 0 16px; display:flex; flex-direction:column; gap:8px; }
+  .shortcuts-list li{ display:flex; justify-content:space-between; font-size:13.5px; color:var(--text); }
+
   @media (max-width:640px){
     thead th, td{ padding:10px 12px; font-size:13px; }
     .seal{ width:28px; height:28px; font-size:9.5px; }
@@ -304,7 +357,7 @@
   :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
   @media print{
-    .toolbar, .action-row, .recent-wrap, .add-bank-card, .to-top, .skip-link, .stats-strip{ display:none !important; }
+    .toolbar, .action-row, .recent-wrap, .add-bank-card, .to-top, .skip-link, .stats-strip, .toast, .modal-overlay{ display:none !important; }
     body{ background:#fff; color:#000; }
     thead th{ background:#eee !important; color:#000 !important; }
   }
@@ -326,7 +379,7 @@
     <div class="search-card" role="search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <label for="search" class="visually-hidden">Buscar por nome do banco ou código TED</label>
-      <input id="search" type="text" placeholder="Buscar por nome do banco ou código..." autocomplete="off" />
+      <input id="search" type="text" placeholder="Buscar por nome do banco ou código... (Ctrl+K)" autocomplete="off" />
       <span class="count-pill" id="count" role="status" aria-live="polite">46 bancos</span>
       <button class="icon-btn" id="theme-toggle" type="button" aria-label="Alternar modo escuro" aria-pressed="false">
         <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -338,6 +391,7 @@
   <div class="recent-wrap hidden" id="recent-wrap">
     <span class="recent-label">Buscas recentes:</span>
     <div id="recent-chips" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+    <button class="recent-clear" id="recent-clear" type="button">limpar</button>
   </div>
 
   <div class="action-row">
@@ -354,6 +408,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       <span id="fav-filter-label">Mostrar só favoritos (0)</span>
     </button>
+    <button class="chip" id="copy-favorites" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span>Copiar favoritos</span>
+    </button>
     <button class="chip" id="export-csv" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       <span>Exportar CSV</span>
@@ -366,9 +424,18 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       <span>Adicionar banco</span>
     </button>
+    <button class="chip" id="shortcuts-btn" type="button" aria-label="Ver atalhos de teclado">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>Atalhos</span>
+    </button>
+    <button class="chip" id="reset-data" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2"/></svg>
+      <span>Limpar dados salvos</span>
+    </button>
   </div>
 
   <form class="add-bank-card" id="add-bank-form">
+    <p class="form-title" id="add-bank-title">Adicionar banco</p>
     <div class="field">
       <label for="new-bank-name">Nome do banco</label>
       <input id="new-bank-name" type="text" required maxlength="60" placeholder="Ex: Banco XYZ">
@@ -376,6 +443,7 @@
     <div class="field">
       <label for="new-bank-code">Código TED</label>
       <input id="new-bank-code" type="text" required pattern="\d{1,4}" maxlength="4" placeholder="Ex: 999">
+      <span class="field-error" id="new-bank-code-error"></span>
     </div>
     <div class="field">
       <label for="new-bank-type">Tipo</label>
@@ -386,7 +454,7 @@
       </select>
     </div>
     <div class="btn-row">
-      <button type="submit" class="btn-primary">Adicionar</button>
+      <button type="submit" class="btn-primary" id="add-bank-submit">Adicionar</button>
       <button type="button" class="btn-secondary" id="add-bank-cancel">Cancelar</button>
     </div>
   </form>
@@ -404,6 +472,10 @@
       <p class="stat-label">Código mais copiado</p>
       <p class="stat-value" id="stat-top-copied">—</p>
     </div>
+    <div class="stat-card">
+      <p class="stat-label">Bancos adicionados por você</p>
+      <p class="stat-value" id="stat-custom">0</p>
+    </div>
   </div>
 
   <main id="main-content">
@@ -419,13 +491,17 @@
         </thead>
         <tbody id="bank-body"></tbody>
       </table>
-      <div class="empty-state" id="empty" role="status">Nenhum banco encontrado para essa busca.</div>
+      <div class="empty-state" id="empty" role="status">
+        Nenhum banco encontrado para essa busca.<br>
+        <button class="btn-secondary" id="empty-clear-search" type="button">Limpar busca e filtros</button>
+      </div>
     </div>
   </main>
 
   <footer>
     © 2026 Victor Colombo — Todos os direitos reservados.<br>
     <strong>Consulta de códigos TED</strong> de instituições financeiras do Brasil.
+    <div class="shortcuts-hint"><kbd>Ctrl</kbd>+<kbd>K</kbd> busca · <kbd>?</kbd> atalhos</div>
   </footer>
 </div>
 
@@ -433,6 +509,32 @@
   <img src="img/banco.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
   <svg style="display:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </a>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal-overlay" id="shortcuts-modal">
+  <div class="modal">
+    <h2>Atalhos de teclado</h2>
+    <ul class="shortcuts-list">
+      <li><span>Focar busca</span><span><kbd>Ctrl</kbd>+<kbd>K</kbd></span></li>
+      <li><span>Abrir estes atalhos</span><span><kbd>?</kbd></span></li>
+      <li><span>Fechar formulário/modal</span><span><kbd>Esc</kbd></span></li>
+      <li><span>Limpar busca</span><span><kbd>Esc</kbd> (com foco na busca)</span></li>
+    </ul>
+    <div class="btn-row"><button class="btn-primary" id="shortcuts-close">Fechar</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal">
+    <h2 id="confirm-title">Confirmar ação</h2>
+    <p id="confirm-text"></p>
+    <div class="btn-row">
+      <button class="btn-secondary" id="confirm-cancel">Cancelar</button>
+      <button class="btn-primary" id="confirm-ok" style="background:var(--danger)">Confirmar</button>
+    </div>
+  </div>
+</div>
 
 <script>
   const baseBanks = [
@@ -489,6 +591,22 @@
     return words.slice(0,2).map(w => w[0].toUpperCase()).join("");
   }
 
+  function escapeHTML(str){
+    return String(str).replace(/[&<>"']/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]));
+  }
+
+  function escapeRegExp(str){ return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  function highlight(text, query){
+    if(!query) return escapeHTML(text);
+    const safeText = escapeHTML(text);
+    const safeQuery = escapeHTML(query);
+    try{
+      const re = new RegExp(escapeRegExp(safeQuery), "ig");
+      return safeText.replace(re, (m) => `<mark>${m}</mark>`);
+    }catch(e){ return safeText; }
+  }
+
   function loadJSON(key, fallback){
     try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }catch(e){ return fallback; }
   }
@@ -500,8 +618,10 @@
   let recentSearches = loadJSON("ted-recent-searches", []);
   let onlyFavorites = false;
   let currentType = "all";
-  let sortKey = null;
-  let sortAsc = true;
+  let sortState = loadJSON("ted-sort-state", { key: null, asc: true });
+  let sortKey = sortState.key;
+  let sortAsc = sortState.asc;
+  let editingId = null;
 
   function allBanks(){ return baseBanks.concat(customBanks); }
 
@@ -513,13 +633,24 @@
   const statTotal = document.getElementById("stat-total");
   const statFavorites = document.getElementById("stat-favorites");
   const statTopCopied = document.getElementById("stat-top-copied");
+  const statCustom = document.getElementById("stat-custom");
   const searchInput = document.getElementById("search");
   const recentWrap = document.getElementById("recent-wrap");
   const recentChips = document.getElementById("recent-chips");
+  const toastEl = document.getElementById("toast");
+  let toastTimer = null;
+
+  function showToast(message){
+    toastEl.textContent = message;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
+  }
 
   function updateStats(){
     statTotal.textContent = allBanks().length;
     statFavorites.textContent = favorites.size;
+    statCustom.textContent = customBanks.length;
     favFilterLabel.textContent = `Mostrar só favoritos (${favorites.size})`;
     let topId = null, topCount = 0;
     Object.entries(copyCounts).forEach(([id, count]) => { if(count > topCount){ topCount = count; topId = id; } });
@@ -533,7 +664,7 @@
     if(recentSearches.length === 0){ recentWrap.classList.add("hidden"); return; }
     recentWrap.classList.remove("hidden");
     recentChips.innerHTML = recentSearches.map(term =>
-      `<button class="recent-chip" type="button" data-term="${term.replace(/"/g,'&quot;')}">${term}</button>`
+      `<button class="recent-chip" type="button" data-term="${escapeHTML(term)}">${escapeHTML(term)}</button>`
     ).join("");
   }
 
@@ -549,34 +680,46 @@
     return type === "fintech" ? "Fintech" : type === "cooperativa" ? "Cooperativa" : "Tradicional";
   }
 
+  function duplicateCodeMap(){
+    const counts = {};
+    allBanks().forEach(b => { counts[b.code] = (counts[b.code] || 0) + 1; });
+    return counts;
+  }
+
   function render(list){
-    tbody.innerHTML = list.map(b => `
-      <tr data-id="${b.id}" data-name="${b.name.toLowerCase()}" data-code="${b.code}" data-type="${b.type}">
+    const q = searchInput.value.trim();
+    const dupCounts = duplicateCodeMap();
+    tbody.innerHTML = list.map(b => {
+      const isDup = dupCounts[b.code] > 1;
+      return `
+      <tr data-id="${b.id}" data-name="${escapeHTML(b.name.toLowerCase())}" data-code="${b.code}" data-type="${b.type}">
         <td class="id-cell">${String(b.id).padStart(2,"0")}</td>
         <td>
           <div class="bank-row">
-            <button class="fav-btn" type="button" data-id="${b.id}" aria-pressed="${favorites.has(b.id)}" aria-label="Favoritar ${b.name}">
+            <button class="fav-btn" type="button" data-id="${b.id}" aria-pressed="${favorites.has(b.id)}" aria-label="Favoritar ${escapeHTML(b.name)}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </button>
             <span class="seal">
               <img src="${b.img || ''}" alt="" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <span class="seal-fallback">${initials(b.name)}</span>
             </span>
-            <span class="bank-name">${b.name}</span>
+            <span class="bank-name" data-id="${b.id}" title="Clique para copiar &quot;${escapeHTML(b.name)} — ${b.code}&quot;">${highlight(b.name, q)}</span>
             <span class="type-badge">${typeLabel(b.type)}</span>
+            ${isDup ? `<span class="dup-badge" title="Código ${b.code} também é usado por outro banco nesta lista">!</span>` : ""}
           </div>
         </td>
         <td class="code-cell">
           <span class="code-wrap">
-            ${b.code}
-            <button class="copy-btn" type="button" data-id="${b.id}" data-code="${b.code}" aria-label="Copiar código ${b.code} de ${b.name}">
+            ${highlight(b.code, q)}
+            <button class="copy-btn" type="button" data-id="${b.id}" data-code="${b.code}" aria-label="Copiar código ${b.code} de ${escapeHTML(b.name)}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             </button>
-            ${b.custom ? `<button class="remove-btn" type="button" data-id="${b.id}" aria-label="Remover ${b.name}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2"/></svg></button>` : ""}
+            ${b.custom ? `<button class="edit-btn" type="button" data-id="${b.id}" aria-label="Editar ${escapeHTML(b.name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>` : ""}
+            ${b.custom ? `<button class="remove-btn" type="button" data-id="${b.id}" aria-label="Remover ${escapeHTML(b.name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2"/></svg></button>` : ""}
           </span>
         </td>
       </tr>
-    `).join("");
+    `;}).join("");
   }
 
   function sortedList(){
@@ -616,39 +759,78 @@
     emptyState.classList.toggle("show", visible === 0);
   }
 
+  function applyHeaderSortIndicators(){
+    headerCells.forEach(h => {
+      h.setAttribute("aria-sort", "none");
+      if(h.dataset.key === sortKey) h.setAttribute("aria-sort", sortAsc ? "ascending" : "descending");
+    });
+  }
+
   rebuild();
   renderRecent();
 
   const headerCells = document.querySelectorAll("thead th[data-key]");
+  applyHeaderSortIndicators();
   headerCells.forEach(th => {
     th.addEventListener("click", () => {
       const key = th.dataset.key;
       sortAsc = sortKey === key ? !sortAsc : true;
       sortKey = key;
-      headerCells.forEach(h => h.setAttribute("aria-sort", "none"));
-      th.setAttribute("aria-sort", sortAsc ? "ascending" : "descending");
+      saveJSON("ted-sort-state", { key: sortKey, asc: sortAsc });
+      applyHeaderSortIndicators();
       rebuild();
     });
   });
 
-  searchInput.addEventListener("input", filterRows);
+  searchInput.addEventListener("input", () => { filterRows(); render(sortedList()); filterRows(); });
   searchInput.addEventListener("blur", () => pushRecentSearch(searchInput.value));
   searchInput.addEventListener("keydown", (e) => {
     if(e.key === "Enter") pushRecentSearch(searchInput.value);
+    if(e.key === "Escape"){ searchInput.value = ""; filterRows(); render(sortedList()); filterRows(); }
   });
 
   recentChips.addEventListener("click", (e) => {
     const chip = e.target.closest(".recent-chip");
     if(!chip) return;
     searchInput.value = chip.dataset.term;
+    render(sortedList());
     filterRows();
     searchInput.focus();
   });
 
+  document.getElementById("recent-clear").addEventListener("click", () => {
+    recentSearches = [];
+    saveJSON("ted-recent-searches", recentSearches);
+    renderRecent();
+  });
+
+  document.getElementById("empty-clear-search").addEventListener("click", () => {
+    searchInput.value = "";
+    onlyFavorites = false;
+    favFilterBtn.setAttribute("aria-pressed", "false");
+    currentType = "all";
+    document.querySelectorAll(".type-group .chip").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.type === "all")));
+    render(sortedList());
+    filterRows();
+  });
+
   document.addEventListener("keydown", (e) => {
+    const tag = (e.target.tagName || "").toLowerCase();
+    const typing = tag === "input" || tag === "select" || tag === "textarea";
     if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
       e.preventDefault();
       searchInput.focus();
+      return;
+    }
+    if(e.key === "?" && !typing){
+      e.preventDefault();
+      openModal(shortcutsModal);
+      return;
+    }
+    if(e.key === "Escape"){
+      if(shortcutsModal.classList.contains("open")) closeModal(shortcutsModal);
+      if(confirmModal.classList.contains("open")) closeModal(confirmModal);
+      if(addBankForm.classList.contains("open")) closeAddBankForm();
     }
   });
 
@@ -666,6 +848,12 @@
     });
   });
 
+  function copyText(text){
+    return navigator.clipboard && navigator.clipboard.writeText
+      ? navigator.clipboard.writeText(text)
+      : Promise.reject(new Error("Clipboard indisponível"));
+  }
+
   tbody.addEventListener("click", (e) => {
     const favBtn = e.target.closest(".fav-btn");
     if(favBtn){
@@ -677,11 +865,22 @@
       if(onlyFavorites) filterRows();
       return;
     }
+    const nameEl = e.target.closest(".bank-name");
+    if(nameEl){
+      const id = parseInt(nameEl.dataset.id, 10);
+      const bank = allBanks().find(b => b.id === id);
+      if(bank){
+        copyText(`${bank.name} — ${bank.code}`)
+          .then(() => showToast(`Copiado: ${bank.name} — ${bank.code}`))
+          .catch(() => showToast("Não foi possível copiar"));
+      }
+      return;
+    }
     const copyBtn = e.target.closest(".copy-btn");
     if(copyBtn){
       const code = copyBtn.dataset.code;
       const id = copyBtn.dataset.id;
-      navigator.clipboard.writeText(code).then(() => {
+      copyText(code).then(() => {
         copyBtn.classList.add("copied");
         const original = copyBtn.innerHTML;
         copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -689,16 +888,38 @@
         saveJSON("ted-copy-counts", copyCounts);
         updateStats();
         setTimeout(() => { copyBtn.classList.remove("copied"); copyBtn.innerHTML = original; }, 1200);
-      }).catch(() => { copyBtn.setAttribute("aria-label", "Não foi possível copiar"); });
+      }).catch(() => { showToast("Não foi possível copiar"); });
+      return;
+    }
+    const editBtn = e.target.closest(".edit-btn");
+    if(editBtn){
+      const id = parseInt(editBtn.dataset.id, 10);
+      const bank = customBanks.find(b => b.id === id);
+      if(bank) openAddBankForm(bank);
       return;
     }
     const removeBtn = e.target.closest(".remove-btn");
     if(removeBtn){
       const id = parseInt(removeBtn.dataset.id, 10);
-      customBanks = customBanks.filter(b => b.id !== id);
-      saveJSON("ted-custom-banks", customBanks);
-      rebuild();
+      const bank = customBanks.find(b => b.id === id);
+      askConfirm(`Remover "${bank ? bank.name : "banco"}"?`, "Essa ação não pode ser desfeita.", () => {
+        customBanks = customBanks.filter(b => b.id !== id);
+        favorites.delete(id);
+        saveJSON("ted-custom-banks", customBanks);
+        saveJSON("ted-favorites", [...favorites]);
+        rebuild();
+        showToast("Banco removido.");
+      });
     }
+  });
+
+  document.getElementById("copy-favorites").addEventListener("click", () => {
+    const favBanks = allBanks().filter(b => favorites.has(b.id));
+    if(favBanks.length === 0){ showToast("Você ainda não tem favoritos."); return; }
+    const text = favBanks.map(b => `${b.name} — ${b.code}`).join("\n");
+    copyText(text)
+      .then(() => showToast(`${favBanks.length} favorito${favBanks.length === 1 ? "" : "s"} copiado${favBanks.length === 1 ? "" : "s"}.`))
+      .catch(() => showToast("Não foi possível copiar"));
   });
 
   document.getElementById("export-csv").addEventListener("click", () => {
@@ -718,35 +939,117 @@
     a.href = url; a.download = "codigos-ted-bancos.csv";
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    showToast("CSV exportado.");
   });
 
   document.getElementById("print-btn").addEventListener("click", () => window.print());
 
   const addBankToggle = document.getElementById("add-bank-toggle");
   const addBankForm = document.getElementById("add-bank-form");
-  addBankToggle.addEventListener("click", () => {
-    const open = addBankForm.classList.toggle("open");
-    addBankToggle.setAttribute("aria-pressed", String(open));
-    if(open) document.getElementById("new-bank-name").focus();
-  });
-  document.getElementById("add-bank-cancel").addEventListener("click", () => {
+  const addBankTitle = document.getElementById("add-bank-title");
+  const addBankSubmit = document.getElementById("add-bank-submit");
+  const nameInput = document.getElementById("new-bank-name");
+  const codeInput = document.getElementById("new-bank-code");
+  const codeError = document.getElementById("new-bank-code-error");
+  const typeInput = document.getElementById("new-bank-type");
+
+  function openAddBankForm(bank){
+    editingId = bank ? bank.id : null;
+    addBankTitle.textContent = bank ? `Editar "${bank.name}"` : "Adicionar banco";
+    addBankSubmit.textContent = bank ? "Salvar alterações" : "Adicionar";
+    nameInput.value = bank ? bank.name : "";
+    codeInput.value = bank ? bank.code : "";
+    typeInput.value = bank ? bank.type : "tradicional";
+    codeError.textContent = "";
+    addBankForm.classList.add("open");
+    addBankToggle.setAttribute("aria-pressed", "true");
+    nameInput.focus();
+  }
+  function closeAddBankForm(){
     addBankForm.classList.remove("open");
     addBankToggle.setAttribute("aria-pressed", "false");
     addBankForm.reset();
+    codeError.textContent = "";
+    editingId = null;
+  }
+
+  addBankToggle.addEventListener("click", () => {
+    if(addBankForm.classList.contains("open")) closeAddBankForm();
+    else openAddBankForm(null);
   });
+  document.getElementById("add-bank-cancel").addEventListener("click", closeAddBankForm);
+
   addBankForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = document.getElementById("new-bank-name").value.trim();
-    const code = document.getElementById("new-bank-code").value.trim();
-    const type = document.getElementById("new-bank-type").value;
-    if(!name || !code) return;
-    const newId = 1000 + customBanks.length + 1;
-    customBanks.push({ id: newId, name, code, img: "", type, custom: true });
-    saveJSON("ted-custom-banks", customBanks);
-    addBankForm.reset();
-    addBankForm.classList.remove("open");
-    addBankToggle.setAttribute("aria-pressed", "false");
+    const name = nameInput.value.trim();
+    const code = codeInput.value.trim();
+    const type = typeInput.value;
+    codeError.textContent = "";
+    if(!/^\d{1,4}$/.test(code)){
+      codeError.textContent = "Use só números, até 4 dígitos.";
+      return;
+    }
+    if(!name) return;
+
+    if(editingId !== null){
+      const bank = customBanks.find(b => b.id === editingId);
+      if(bank){ bank.name = name; bank.code = code; bank.type = type; }
+      saveJSON("ted-custom-banks", customBanks);
+      showToast("Banco atualizado.");
+    } else {
+      const usedIds = new Set(allBanks().map(b => b.id));
+      let newId = 1000;
+      while(usedIds.has(newId)) newId++;
+      customBanks.push({ id: newId, name, code, img: "", type, custom: true });
+      saveJSON("ted-custom-banks", customBanks);
+      showToast("Banco adicionado.");
+    }
+    closeAddBankForm();
     rebuild();
+  });
+
+  const shortcutsModal = document.getElementById("shortcuts-modal");
+  const confirmModal = document.getElementById("confirm-modal");
+  function openModal(modal){ modal.classList.add("open"); }
+  function closeModal(modal){ modal.classList.remove("open"); }
+
+  document.getElementById("shortcuts-btn").addEventListener("click", () => openModal(shortcutsModal));
+  document.getElementById("shortcuts-close").addEventListener("click", () => closeModal(shortcutsModal));
+  shortcutsModal.addEventListener("click", (e) => { if(e.target === shortcutsModal) closeModal(shortcutsModal); });
+
+  let confirmCallback = null;
+  function askConfirm(title, text, onConfirm){
+    document.getElementById("confirm-title").textContent = title;
+    document.getElementById("confirm-text").textContent = text;
+    confirmCallback = onConfirm;
+    openModal(confirmModal);
+  }
+  document.getElementById("confirm-cancel").addEventListener("click", () => { closeModal(confirmModal); confirmCallback = null; });
+  document.getElementById("confirm-ok").addEventListener("click", () => {
+    if(confirmCallback) confirmCallback();
+    closeModal(confirmModal);
+    confirmCallback = null;
+  });
+  confirmModal.addEventListener("click", (e) => { if(e.target === confirmModal) { closeModal(confirmModal); confirmCallback = null; } });
+
+  document.getElementById("reset-data").addEventListener("click", () => {
+    askConfirm(
+      "Limpar todos os dados salvos?",
+      "Isso remove favoritos, bancos adicionados por você, histórico de buscas, contagem de cópias e ordenação salva. Não afeta a lista padrão de bancos.",
+      () => {
+        ["ted-favorites","ted-copy-counts","ted-custom-banks","ted-recent-searches","ted-sort-state"].forEach(k => localStorage.removeItem(k));
+        favorites = new Set();
+        copyCounts = {};
+        customBanks = [];
+        recentSearches = [];
+        sortKey = null; sortAsc = true;
+        onlyFavorites = false; favFilterBtn.setAttribute("aria-pressed","false");
+        applyHeaderSortIndicators();
+        renderRecent();
+        rebuild();
+        showToast("Dados salvos limpos.");
+      }
+    );
   });
 
   const root = document.documentElement;
