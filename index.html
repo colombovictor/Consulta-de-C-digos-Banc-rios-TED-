@@ -22,12 +22,10 @@
     --page:#F3F5F4;
     --line:#D6DCDD;
     --hover-row:#F1E9D8;
+    --danger:#8A2E2E;
     --shadow: 0 8px 24px rgba(11,31,51,0.08);
   }
 
-  /* --brand-ink and --on-dark are intentionally invariant across themes:
-     the masthead, table header, seals and "to top" button are always a
-     dark navy "stamp" with light text, in both light and dark mode. */
   html[data-theme="dark"]{
     --gold:#D9C089;
     --gold-soft:#EAD9AE;
@@ -39,10 +37,35 @@
     --page:#0A1622;
     --line:#25394D;
     --hover-row:#1C3345;
+    --danger:#E08A78;
     --shadow: 0 8px 24px rgba(0,0,0,0.4);
   }
 
   *{ box-sizing:border-box; }
+
+  .visually-hidden{
+    position:absolute;
+    width:1px; height:1px;
+    padding:0; margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:12px;
+    top:-48px;
+    background:var(--brand-ink);
+    color:var(--on-dark);
+    padding:10px 16px;
+    border-radius:6px;
+    z-index:100;
+    text-decoration:none;
+    transition:top .15s ease;
+  }
+  .skip-link:focus{ top:12px; }
 
   body{
     margin:0;
@@ -53,10 +76,8 @@
     transition:background .2s ease, color .2s ease;
   }
 
-  /* subtle ledger-paper texture */
   .page{
-    background-image:
-      linear-gradient(var(--page) 39px, var(--line) 40px);
+    background-image: linear-gradient(var(--page) 39px, var(--line) 40px);
     background-size: 100% 40px;
     background-attachment:local;
   }
@@ -69,280 +90,207 @@
     position:relative;
     overflow:hidden;
   }
-
   header.masthead::before{
     content:"";
-    position:absolute;
-    inset:0;
-    background:
-      repeating-linear-gradient(90deg, rgba(217,192,137,0.06) 0px, rgba(217,192,137,0.06) 1px, transparent 1px, transparent 64px);
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(90deg, rgba(217,192,137,0.06) 0px, rgba(217,192,137,0.06) 1px, transparent 1px, transparent 64px);
     pointer-events:none;
   }
 
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    font-size:12px;
-    color:var(--gold-soft);
-    margin:0 0 14px;
+    letter-spacing:.18em; text-transform:uppercase;
+    font-size:12px; color:var(--gold-soft); margin:0 0 14px;
   }
 
   h1{
     font-family:'Fraunces', serif;
     font-weight:600;
     font-size:clamp(28px, 4.4vw, 46px);
-    margin:0 0 12px;
-    letter-spacing:-0.01em;
+    margin:0 0 12px; letter-spacing:-0.01em;
     color:var(--on-dark);
   }
 
-  .subtitle{
-    max-width:560px;
-    margin:0 auto;
-    color:#C6D0DA;
-    font-size:15px;
-    line-height:1.6;
-  }
+  .subtitle{ max-width:560px; margin:0 auto; color:#C6D0DA; font-size:15px; line-height:1.6; }
 
-  .toolbar{
-    max-width:1000px;
-    margin:-26px auto 0;
-    padding:0 24px;
-    position:relative;
-    z-index:3;
-  }
+  .toolbar{ max-width:1000px; margin:-26px auto 0; padding:0 24px; position:relative; z-index:3; }
 
   .search-card{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:10px;
-    box-shadow:var(--shadow);
-    padding:16px 18px;
-    display:flex;
-    gap:12px;
-    align-items:center;
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    box-shadow:var(--shadow); padding:16px 18px; display:flex; gap:12px; align-items:center;
   }
-
   .search-card svg{ flex:0 0 auto; color:var(--text-muted); }
 
   #search{
-    flex:1;
-    border:none;
-    outline:none;
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:15px;
-    color:var(--text);
-    background:transparent;
+    flex:1; border:none; outline:none;
+    font-family:'IBM Plex Sans', sans-serif; font-size:15px; color:var(--text); background:transparent;
   }
   #search::placeholder{ color:var(--text-muted); }
 
   .count-pill{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--text-muted);
-    background:var(--surface-alt);
-    border-radius:999px;
-    padding:6px 12px;
-    white-space:nowrap;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-muted);
+    background:var(--surface-alt); border-radius:999px; padding:6px 12px; white-space:nowrap;
   }
 
-  .theme-toggle{
-    flex:0 0 auto;
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:var(--surface-alt);
-    color:var(--text-muted);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition:background .15s ease, transform .15s ease;
+  .icon-btn{
+    flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line); background:var(--surface-alt); color:var(--text-muted);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:background .15s ease, transform .15s ease, color .15s ease;
   }
-  .theme-toggle:hover{ transform:rotate(12deg); }
-  .theme-toggle svg{ pointer-events:none; }
-  .theme-toggle .icon-sun{ display:none; }
-  html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
-  html[data-theme="dark"] .theme-toggle .icon-sun{ display:block; }
+  .icon-btn:hover{ transform:rotate(12deg); }
+  .icon-btn svg{ pointer-events:none; }
+  .icon-btn .icon-sun{ display:none; }
+  html[data-theme="dark"] .icon-btn .icon-moon{ display:none; }
+  html[data-theme="dark"] .icon-btn .icon-sun{ display:block; }
 
-  .code-wrap{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    justify-content:flex-end;
+  .recent-wrap{
+    max-width:1000px; margin:10px auto 0; padding:0 24px;
+    display:flex; flex-wrap:wrap; gap:8px; align-items:center;
   }
+  .recent-wrap.hidden{ display:none; }
+  .recent-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-muted);
+    text-transform:uppercase; letter-spacing:.06em;
+  }
+  .recent-chip{
+    font-size:12.5px; color:var(--text-muted); background:var(--surface);
+    border:1px solid var(--line); border-radius:999px; padding:5px 12px; cursor:pointer;
+  }
+  .recent-chip:hover{ border-color:var(--gold); color:var(--text); }
 
-  .copy-btn{
-    flex:0 0 auto;
-    width:24px;
-    height:24px;
-    border-radius:6px;
-    border:1px solid var(--line);
-    background:var(--surface-alt);
-    color:var(--text-muted);
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    padding:0;
-    transition:background .15s ease, color .15s ease;
+  .action-row{
+    max-width:1000px; margin:14px auto 0; padding:0 24px;
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  }
+  .type-group{ display:flex; gap:8px; flex-wrap:wrap; }
+
+  .chip{
+    font-family:'IBM Plex Sans', sans-serif; font-size:13px; font-weight:500;
+    color:var(--text-muted); background:var(--surface); border:1px solid var(--line);
+    border-radius:999px; padding:8px 16px; display:inline-flex; align-items:center; gap:6px;
+    cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .chip svg{ width:14px; height:14px; }
+  .chip:hover{ border-color:var(--gold); }
+  .chip[aria-pressed="true"]{ background:var(--brand-ink); color:var(--on-dark); border-color:var(--brand-ink); }
+  .chip[aria-pressed="true"] svg{ fill:var(--gold-soft); stroke:var(--gold-soft); }
+
+  .stats-strip{
+    max-width:1000px; margin:18px auto 0; padding:0 24px;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+  }
+  .stat-card{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; text-align:left; }
+  .stat-label{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--text-muted); margin:0 0 6px;
+  }
+  .stat-value{ font-family:'Fraunces', serif; font-size:20px; font-weight:600; color:var(--text); margin:0; }
+  @media (max-width:640px){ .stats-strip{ grid-template-columns:1fr; } }
+
+  .add-bank-card{
+    max-width:1000px; margin:14px auto 0; padding:16px 18px;
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    display:none; gap:10px; flex-wrap:wrap; align-items:flex-end;
+  }
+  .add-bank-card.open{ display:flex; margin-left:auto; margin-right:auto; }
+  .add-bank-card .field{ display:flex; flex-direction:column; gap:4px; flex:1; min-width:140px; }
+  .add-bank-card label{ font-size:11.5px; color:var(--text-muted); font-family:'IBM Plex Mono', monospace; }
+  .add-bank-card input, .add-bank-card select{
+    border:1px solid var(--line); border-radius:6px; padding:8px 10px;
+    background:var(--page); color:var(--text); font-family:'IBM Plex Sans', sans-serif; font-size:14px;
+  }
+  .add-bank-card .btn-row{ display:flex; gap:8px; }
+  .btn-primary, .btn-secondary{
+    border:none; border-radius:6px; padding:9px 16px; font-size:13.5px; font-weight:600;
+    cursor:pointer; font-family:'IBM Plex Sans', sans-serif;
+  }
+  .btn-primary{ background:var(--brand-ink); color:var(--on-dark); }
+  .btn-secondary{ background:var(--surface-alt); color:var(--text-muted); }
+
+  .code-wrap{ display:inline-flex; align-items:center; gap:8px; justify-content:flex-end; }
+
+  .copy-btn, .remove-btn{
+    flex:0 0 auto; width:24px; height:24px; border-radius:6px; border:1px solid var(--line);
+    background:var(--surface-alt); color:var(--text-muted); display:inline-flex; align-items:center;
+    justify-content:center; cursor:pointer; padding:0; transition:background .15s ease, color .15s ease;
   }
   .copy-btn:hover{ background:var(--gold-soft); color:var(--brand-ink); }
   .copy-btn.copied{ background:var(--brand-ink); color:var(--on-dark); border-color:var(--brand-ink); }
-  .copy-btn svg{ width:13px; height:13px; pointer-events:none; }
+  .copy-btn svg, .remove-btn svg{ width:13px; height:13px; pointer-events:none; }
+  .remove-btn:hover{ background:var(--danger); color:#fff; border-color:var(--danger); }
 
-  main{
-    max-width:1000px;
-    margin:32px auto 80px;
-    padding:0 24px;
+  .fav-btn{
+    flex:0 0 auto; width:24px; height:24px; border:none; background:transparent; color:var(--text-muted);
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer; padding:0;
+  }
+  .fav-btn svg{ width:17px; height:17px; pointer-events:none; transition:fill .15s ease, stroke .15s ease; }
+  .fav-btn[aria-pressed="true"] svg{ fill:var(--gold); stroke:var(--gold); }
+  .fav-btn:hover svg{ stroke:var(--gold); }
+
+  .type-badge{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase;
+    letter-spacing:.05em; color:var(--text-muted); background:var(--surface-alt);
+    border-radius:5px; padding:2px 6px; margin-left:8px; white-space:nowrap;
   }
 
-  .table-shell{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-  }
+  main{ max-width:1000px; margin:20px auto 80px; padding:0 24px; }
 
-  table{
-    width:100%;
-    border-collapse:collapse;
-  }
+  .table-shell{ background:var(--surface); border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:var(--shadow); }
+  table{ width:100%; border-collapse:collapse; }
 
   thead th{
-    position:sticky;
-    top:0;
-    background:var(--brand-ink);
-    color:var(--on-dark);
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:500;
-    font-size:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    text-align:left;
-    padding:14px 18px;
-    cursor:pointer;
-    user-select:none;
-    white-space:nowrap;
+    position:sticky; top:0; background:var(--brand-ink); color:var(--on-dark);
+    font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:12px; letter-spacing:.08em;
+    text-transform:uppercase; text-align:left; padding:14px 18px; cursor:pointer; user-select:none; white-space:nowrap;
   }
   thead th span.arrow{ opacity:.6; margin-left:4px; font-size:10px; color:var(--gold-soft); }
-  thead th:first-child{ text-align:center; }
+  thead th:first-child{ text-align:center; cursor:default; }
   thead th:last-child{ text-align:right; }
 
-  tbody tr{
-    border-bottom:1px solid var(--line);
-    transition:background .15s ease;
-  }
+  tbody tr{ border-bottom:1px solid var(--line); transition:background .15s ease; }
   tbody tr:nth-child(even){ background:var(--surface-alt); }
   tbody tr:hover{ background:var(--hover-row); }
   tbody tr.hidden{ display:none; }
 
-  td{
-    padding:12px 18px;
-    font-size:14.5px;
-    vertical-align:middle;
-  }
+  td{ padding:12px 18px; font-size:14.5px; vertical-align:middle; }
+  td.id-cell{ text-align:center; font-family:'IBM Plex Mono', monospace; color:var(--text-muted); font-size:12.5px; width:56px; }
 
-  td.id-cell{
-    text-align:center;
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--text-muted);
-    font-size:12.5px;
-    width:56px;
-  }
-
-  .bank-row{
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
+  .bank-row{ display:flex; align-items:center; gap:10px; }
 
   .seal{
-    flex:0 0 auto;
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    background:#FFFFFF;
-    border:1.5px solid var(--gold);
-    color:var(--gold-soft);
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:600;
-    font-size:11px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    position:relative;
+    flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#FFFFFF;
+    border:1.5px solid var(--gold); color:var(--gold-soft); font-family:'IBM Plex Mono', monospace;
+    font-weight:600; font-size:11px; display:flex; align-items:center; justify-content:center;
+    overflow:hidden; position:relative;
   }
-
-  .seal img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    padding:4px;
-    border-radius:50%;
-  }
-
+  .seal img{ width:100%; height:100%; object-fit:contain; padding:4px; border-radius:50%; }
   .seal-fallback{
-    display:none;
-    width:100%;
-    height:100%;
-    align-items:center;
-    justify-content:center;
-    background:var(--brand-ink);
-    color:var(--gold-soft);
+    display:none; width:100%; height:100%; align-items:center; justify-content:center;
+    background:var(--brand-ink); color:var(--gold-soft);
   }
 
   .bank-name{ font-weight:500; color:var(--text); }
 
   td.code-cell{
-    text-align:right;
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:600;
-    font-size:15px;
-    color:var(--code-color);
-    letter-spacing:.03em;
+    text-align:right; font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:15px;
+    color:var(--code-color); letter-spacing:.03em;
   }
 
   .empty-state{
-    display:none;
-    padding:48px 24px;
-    text-align:center;
-    color:var(--text-muted);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
+    display:none; padding:48px 24px; text-align:center; color:var(--text-muted);
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
   }
   .empty-state.show{ display:block; }
 
-  footer{
-    text-align:center;
-    padding:26px 24px 40px;
-    color:var(--text-muted);
-    font-size:12.5px;
-    font-family:'IBM Plex Mono', monospace;
-  }
+  footer{ text-align:center; padding:26px 24px 40px; color:var(--text-muted); font-size:12.5px; font-family:'IBM Plex Mono', monospace; }
   footer strong{ color:var(--text); }
 
   .to-top{
-    position:fixed;
-    bottom:22px;
-    right:22px;
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:var(--brand-ink);
-    border:1.5px solid var(--gold);
-    color:var(--gold-soft);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    box-shadow:var(--shadow);
-    transition:transform .2s ease;
-    overflow:hidden;
+    position:fixed; bottom:22px; right:22px; width:46px; height:46px; border-radius:50%;
+    background:var(--brand-ink); border:1.5px solid var(--gold); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; text-decoration:none;
+    box-shadow:var(--shadow); transition:transform .2s ease; overflow:hidden;
   }
   .to-top:hover{ transform:translateY(-3px); }
   .to-top img{ width:70%; height:70%; object-fit:contain; border-radius:50%; }
@@ -355,12 +303,17 @@
 
   :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ transition:none !important; }
+  @media print{
+    .toolbar, .action-row, .recent-wrap, .add-bank-card, .to-top, .skip-link, .stats-strip{ display:none !important; }
+    body{ background:#fff; color:#000; }
+    thead th{ background:#eee !important; color:#000 !important; }
   }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Pular para o conteúdo</a>
 <div class="page">
 
   <header class="masthead">
@@ -370,30 +323,103 @@
   </header>
 
   <div class="toolbar">
-    <div class="search-card">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <div class="search-card" role="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <label for="search" class="visually-hidden">Buscar por nome do banco ou código TED</label>
       <input id="search" type="text" placeholder="Buscar por nome do banco ou código..." autocomplete="off" />
-      <span class="count-pill" id="count">46 bancos</span>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Alternar modo escuro">
-        <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span class="count-pill" id="count" role="status" aria-live="polite">46 bancos</span>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Alternar modo escuro" aria-pressed="false">
+        <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
     </div>
   </div>
 
-  <main>
+  <div class="recent-wrap hidden" id="recent-wrap">
+    <span class="recent-label">Buscas recentes:</span>
+    <div id="recent-chips" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+  </div>
+
+  <div class="action-row">
+    <div class="type-group" role="group" aria-label="Filtrar por tipo de instituição">
+      <button class="chip" data-type="all" aria-pressed="true">Todos</button>
+      <button class="chip" data-type="tradicional" aria-pressed="false">Tradicional</button>
+      <button class="chip" data-type="fintech" aria-pressed="false">Fintech</button>
+      <button class="chip" data-type="cooperativa" aria-pressed="false">Cooperativa</button>
+    </div>
+  </div>
+
+  <div class="action-row">
+    <button class="chip" id="fav-filter" type="button" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span id="fav-filter-label">Mostrar só favoritos (0)</span>
+    </button>
+    <button class="chip" id="export-csv" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Exportar CSV</span>
+    </button>
+    <button class="chip" id="print-btn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      <span>Imprimir</span>
+    </button>
+    <button class="chip" id="add-bank-toggle" type="button" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span>Adicionar banco</span>
+    </button>
+  </div>
+
+  <form class="add-bank-card" id="add-bank-form">
+    <div class="field">
+      <label for="new-bank-name">Nome do banco</label>
+      <input id="new-bank-name" type="text" required maxlength="60" placeholder="Ex: Banco XYZ">
+    </div>
+    <div class="field">
+      <label for="new-bank-code">Código TED</label>
+      <input id="new-bank-code" type="text" required pattern="\d{1,4}" maxlength="4" placeholder="Ex: 999">
+    </div>
+    <div class="field">
+      <label for="new-bank-type">Tipo</label>
+      <select id="new-bank-type">
+        <option value="tradicional">Tradicional</option>
+        <option value="fintech">Fintech</option>
+        <option value="cooperativa">Cooperativa</option>
+      </select>
+    </div>
+    <div class="btn-row">
+      <button type="submit" class="btn-primary">Adicionar</button>
+      <button type="button" class="btn-secondary" id="add-bank-cancel">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="stats-strip" role="group" aria-label="Estatísticas da lista">
+    <div class="stat-card">
+      <p class="stat-label">Total de bancos</p>
+      <p class="stat-value" id="stat-total">46</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Favoritos salvos</p>
+      <p class="stat-value" id="stat-favorites">0</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Código mais copiado</p>
+      <p class="stat-value" id="stat-top-copied">—</p>
+    </div>
+  </div>
+
+  <main id="main-content">
     <div class="table-shell">
       <table>
+        <caption class="visually-hidden">Lista de bancos brasileiros com seus respectivos códigos de compensação TED</caption>
         <thead>
           <tr>
-            <th data-key="id">Nº</th>
-            <th data-key="name">Instituição <span class="arrow">▾</span></th>
-            <th data-key="code" style="text-align:right">Código TED <span class="arrow">▾</span></th>
+            <th scope="col" data-key="id" aria-sort="none">Nº</th>
+            <th scope="col" data-key="name" aria-sort="none">Instituição <span class="arrow">▾</span></th>
+            <th scope="col" data-key="code" aria-sort="none" style="text-align:right">Código TED <span class="arrow">▾</span></th>
           </tr>
         </thead>
         <tbody id="bank-body"></tbody>
       </table>
-      <div class="empty-state" id="empty">Nenhum banco encontrado para essa busca.</div>
+      <div class="empty-state" id="empty" role="status">Nenhum banco encontrado para essa busca.</div>
     </div>
   </main>
 
@@ -404,163 +430,343 @@
 </div>
 
 <a href="#top" class="to-top" aria-label="Voltar ao topo">
-  <img src="img/banco.png" alt="Voltar ao topo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-  <svg style="display:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  <img src="img/banco.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <svg style="display:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </a>
 
 <script>
-  const banks = [
-    ["Banco do Brasil","001","img/bancodobrasil.png"],
-    ["Bradesco","237","img/bradesco.png"],
-    ["Itaú","341","img/Itaulogo.png"],
-    ["Santander","033","img/Santander_Argentina_Logo.png"],
-    ["Caixa Econômica Federal","104","img/caixa.png"],
-    ["Nubank","260","img/nubank.png.png"],
-    ["Banco Inter","077","img/inter.png"],
-    ["C6 Bank","336","img/c6.png"],
-    ["BTG Pactual","208","img/BTGPactual.png"],
-    ["Banco Safra","422","img/banco-safra-logo.png"],
-    ["PagBank (PagSeguro)","290","img/pagbank-logo.png"],
-    ["PicPay","380","img/picpay.png"],
-    ["Mercado Pago","323","img/mercadopago.png"],
-    ["Sicredi","748","img/sicredi.png.webp"],
-    ["Banco Neon","536","img/neon.png"],
-    ["Banco BMG","318","img/bmg.png"],
-    ["Banco Pan","623","img/pan.png"],
-    ["Banco Original","212","img/bancooriginal.png"],
-    ["Banco BS2","218","img/bs2.png"],
-    ["Banco Sofisa Direto","637","img/sofisadireto.png"],
-    ["Banco Digio","335","img/digio.png"],
-    ["Banco BRB","070","img/brb.png"],
-    ["Banco Sicoob","756","img/Sicoob.png"],
-    ["Banco ABC","246","img/abc.png"],
-    ["Banco ALFA","025","img/alfa.png"],
-    ["Banco BNP","752","img/bnp.png"],
-    ["Banco Citi","745","img/Citi.logo.png"],
-    ["Deutsche Bank","487","img/Deutsche.png"],
-    ["Deutsche Cetelem","739","img/cetelem.png"],
-    ["Banco BOCOM BBM","107","img/bbm.png"],
-    ["Banco Modal","746","img/modal.png"],
-    ["Banco Fibra","224","img/fibra.png"],
-    ["Banco Votorantim","655","img/bv.png"],
-    ["Banco Daycoval","707","img/day.png"],
-    ["Banco Pine","643","img/pine.png"],
-    ["Banco Renner","654","img/renner.png"],
-    ["Banco JP Morgan","376","img/jp.png"],
-    ["Bank of America","755","img/america.png"],
-    ["Banco Credit Suisse","505","img/credit.png"],
-    ["Banco ING Bank","492","img/ing.png"],
-    ["Banco Banese","047","img/banese.png"],
-    ["Banco do Nordeste","004","img/nor.png"],
-    ["Banco BNY Mellon","017","img/bny.png"],
-    ["Banco XP Investimentos","348","img/xp.png"],
-    ["Crefisa","069","img/crefisa.png"],
-    ["Banco Digimais","654","img/dig.png"]
-  ].map((b, i) => ({ id: i + 1, name: b[0], code: b[1], img: b[2] }));
+  const baseBanks = [
+    ["Banco do Brasil","001","img/bancodobrasil.png","tradicional"],
+    ["Bradesco","237","img/bradesco.png","tradicional"],
+    ["Itaú","341","img/Itaulogo.png","tradicional"],
+    ["Santander","033","img/Santander_Argentina_Logo.png","tradicional"],
+    ["Caixa Econômica Federal","104","img/caixa.png","tradicional"],
+    ["Nubank","260","img/nubank.png.png","fintech"],
+    ["Banco Inter","077","img/inter.png","fintech"],
+    ["C6 Bank","336","img/c6.png","fintech"],
+    ["BTG Pactual","208","img/BTGPactual.png","tradicional"],
+    ["Banco Safra","422","img/banco-safra-logo.png","tradicional"],
+    ["PagBank (PagSeguro)","290","img/pagbank-logo.png","fintech"],
+    ["PicPay","380","img/picpay.png","fintech"],
+    ["Mercado Pago","323","img/mercadopago.png","fintech"],
+    ["Sicredi","748","img/sicredi.png.webp","cooperativa"],
+    ["Banco Neon","536","img/neon.png","fintech"],
+    ["Banco BMG","318","img/bmg.png","tradicional"],
+    ["Banco Pan","623","img/pan.png","fintech"],
+    ["Banco Original","212","img/bancooriginal.png","fintech"],
+    ["Banco BS2","218","img/bs2.png","fintech"],
+    ["Banco Sofisa Direto","637","img/sofisadireto.png","fintech"],
+    ["Banco Digio","335","img/digio.png","fintech"],
+    ["Banco BRB","070","img/brb.png","tradicional"],
+    ["Banco Sicoob","756","img/Sicoob.png","cooperativa"],
+    ["Banco ABC","246","img/abc.png","tradicional"],
+    ["Banco ALFA","025","img/alfa.png","tradicional"],
+    ["Banco BNP","752","img/bnp.png","tradicional"],
+    ["Banco Citi","745","img/Citi.logo.png","tradicional"],
+    ["Deutsche Bank","487","img/Deutsche.png","tradicional"],
+    ["Deutsche Cetelem","739","img/cetelem.png","tradicional"],
+    ["Banco BOCOM BBM","107","img/bbm.png","tradicional"],
+    ["Banco Modal","746","img/modal.png","tradicional"],
+    ["Banco Fibra","224","img/fibra.png","tradicional"],
+    ["Banco Votorantim","655","img/bv.png","tradicional"],
+    ["Banco Daycoval","707","img/day.png","tradicional"],
+    ["Banco Pine","643","img/pine.png","tradicional"],
+    ["Banco Renner","654","img/renner.png","tradicional"],
+    ["Banco JP Morgan","376","img/jp.png","tradicional"],
+    ["Bank of America","755","img/america.png","tradicional"],
+    ["Banco Credit Suisse","505","img/credit.png","tradicional"],
+    ["Banco ING Bank","492","img/ing.png","tradicional"],
+    ["Banco Banese","047","img/banese.png","tradicional"],
+    ["Banco do Nordeste","004","img/nor.png","tradicional"],
+    ["Banco BNY Mellon","017","img/bny.png","tradicional"],
+    ["Banco XP Investimentos","348","img/xp.png","tradicional"],
+    ["Crefisa","069","img/crefisa.png","tradicional"],
+    ["Banco Digimais","654","img/dig.png","fintech"]
+  ].map((b, i) => ({ id: i + 1, name: b[0], code: b[1], img: b[2], type: b[3], custom:false }));
 
   function initials(name){
     const words = name.replace(/\(.*?\)/g,"").trim().split(/\s+/).filter(w => !["do","de","da","dos"].includes(w.toLowerCase()));
     return words.slice(0,2).map(w => w[0].toUpperCase()).join("");
   }
 
+  function loadJSON(key, fallback){
+    try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }catch(e){ return fallback; }
+  }
+  function saveJSON(key, value){ try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){} }
+
+  let favorites = new Set(loadJSON("ted-favorites", []));
+  let copyCounts = loadJSON("ted-copy-counts", {});
+  let customBanks = loadJSON("ted-custom-banks", []);
+  let recentSearches = loadJSON("ted-recent-searches", []);
+  let onlyFavorites = false;
+  let currentType = "all";
+  let sortKey = null;
+  let sortAsc = true;
+
+  function allBanks(){ return baseBanks.concat(customBanks); }
+
   const tbody = document.getElementById("bank-body");
   const emptyState = document.getElementById("empty");
   const countPill = document.getElementById("count");
+  const favFilterBtn = document.getElementById("fav-filter");
+  const favFilterLabel = document.getElementById("fav-filter-label");
+  const statTotal = document.getElementById("stat-total");
+  const statFavorites = document.getElementById("stat-favorites");
+  const statTopCopied = document.getElementById("stat-top-copied");
+  const searchInput = document.getElementById("search");
+  const recentWrap = document.getElementById("recent-wrap");
+  const recentChips = document.getElementById("recent-chips");
+
+  function updateStats(){
+    statTotal.textContent = allBanks().length;
+    statFavorites.textContent = favorites.size;
+    favFilterLabel.textContent = `Mostrar só favoritos (${favorites.size})`;
+    let topId = null, topCount = 0;
+    Object.entries(copyCounts).forEach(([id, count]) => { if(count > topCount){ topCount = count; topId = id; } });
+    if(topId){
+      const bank = allBanks().find(b => String(b.id) === String(topId));
+      statTopCopied.textContent = bank ? `${bank.name} (${bank.code})` : "—";
+    } else { statTopCopied.textContent = "—"; }
+  }
+
+  function renderRecent(){
+    if(recentSearches.length === 0){ recentWrap.classList.add("hidden"); return; }
+    recentWrap.classList.remove("hidden");
+    recentChips.innerHTML = recentSearches.map(term =>
+      `<button class="recent-chip" type="button" data-term="${term.replace(/"/g,'&quot;')}">${term}</button>`
+    ).join("");
+  }
+
+  function pushRecentSearch(term){
+    term = term.trim();
+    if(term.length < 2) return;
+    recentSearches = [term, ...recentSearches.filter(t => t.toLowerCase() !== term.toLowerCase())].slice(0, 6);
+    saveJSON("ted-recent-searches", recentSearches);
+    renderRecent();
+  }
+
+  function typeLabel(type){
+    return type === "fintech" ? "Fintech" : type === "cooperativa" ? "Cooperativa" : "Tradicional";
+  }
 
   function render(list){
     tbody.innerHTML = list.map(b => `
-      <tr data-name="${b.name.toLowerCase()}" data-code="${b.code}">
+      <tr data-id="${b.id}" data-name="${b.name.toLowerCase()}" data-code="${b.code}" data-type="${b.type}">
         <td class="id-cell">${String(b.id).padStart(2,"0")}</td>
         <td>
           <div class="bank-row">
+            <button class="fav-btn" type="button" data-id="${b.id}" aria-pressed="${favorites.has(b.id)}" aria-label="Favoritar ${b.name}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
             <span class="seal">
-              <img src="${b.img}" alt="${b.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <img src="${b.img || ''}" alt="" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <span class="seal-fallback">${initials(b.name)}</span>
             </span>
             <span class="bank-name">${b.name}</span>
+            <span class="type-badge">${typeLabel(b.type)}</span>
           </div>
         </td>
         <td class="code-cell">
           <span class="code-wrap">
             ${b.code}
-            <button class="copy-btn" type="button" data-code="${b.code}" aria-label="Copiar código ${b.code}">
+            <button class="copy-btn" type="button" data-id="${b.id}" data-code="${b.code}" aria-label="Copiar código ${b.code} de ${b.name}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             </button>
+            ${b.custom ? `<button class="remove-btn" type="button" data-id="${b.id}" aria-label="Remover ${b.name}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2"/></svg></button>` : ""}
           </span>
         </td>
       </tr>
     `).join("");
   }
 
-  render(banks);
-
-  let sortKey = null;
-  let sortAsc = true;
-  document.querySelectorAll("thead th[data-key]").forEach(th => {
-    th.addEventListener("click", () => {
-      const key = th.dataset.key;
-      sortAsc = sortKey === key ? !sortAsc : true;
-      sortKey = key;
-      const sorted = [...banks].sort((a,b) => {
-        let va = a[key], vb = b[key];
-        if(key === "id" || key === "code"){ va = parseInt(va,10); vb = parseInt(vb,10); }
-        else { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+  function sortedList(){
+    const list = [...allBanks()];
+    if(sortKey){
+      list.sort((a,b) => {
+        let va = a[sortKey], vb = b[sortKey];
+        if(sortKey === "id" || sortKey === "code"){ va = parseInt(va,10); vb = parseInt(vb,10); }
+        else { va = String(va).toLowerCase(); vb = String(vb).toLowerCase(); }
         return va < vb ? -1 : va > vb ? 1 : 0;
       });
-      if(!sortAsc) sorted.reverse();
-      render(sorted);
-      filterRows();
-    });
-  });
+      if(!sortAsc) list.reverse();
+    }
+    return list;
+  }
 
-  const searchInput = document.getElementById("search");
+  function rebuild(){
+    render(sortedList());
+    filterRows();
+    updateStats();
+  }
+
+  function currentRows(){ return [...tbody.querySelectorAll("tr")]; }
+
   function filterRows(){
     const q = searchInput.value.trim().toLowerCase();
     let visible = 0;
-    document.querySelectorAll("#bank-body tr").forEach(row => {
-      const match = !q || row.dataset.name.includes(q) || row.dataset.code.includes(q);
-      row.classList.toggle("hidden", !match);
-      if(match) visible++;
+    currentRows().forEach(row => {
+      const matchesQuery = !q || row.dataset.name.includes(q) || row.dataset.code.includes(q);
+      const matchesFav = !onlyFavorites || favorites.has(parseInt(row.dataset.id, 10));
+      const matchesType = currentType === "all" || row.dataset.type === currentType;
+      const show = matchesQuery && matchesFav && matchesType;
+      row.classList.toggle("hidden", !show);
+      if(show) visible++;
     });
     countPill.textContent = `${visible} banco${visible === 1 ? "" : "s"}`;
     emptyState.classList.toggle("show", visible === 0);
   }
-  searchInput.addEventListener("input", filterRows);
 
-  // copiar código com 1 clique (delegado, pois as linhas são recriadas a cada render)
-  tbody.addEventListener("click", (e) => {
-    const btn = e.target.closest(".copy-btn");
-    if(!btn) return;
-    const code = btn.dataset.code;
-    navigator.clipboard.writeText(code).then(() => {
-      btn.classList.add("copied");
-      const original = btn.innerHTML;
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-      setTimeout(() => {
-        btn.classList.remove("copied");
-        btn.innerHTML = original;
-      }, 1200);
-    }).catch(() => {
-      btn.setAttribute("aria-label", "Não foi possível copiar");
+  rebuild();
+  renderRecent();
+
+  const headerCells = document.querySelectorAll("thead th[data-key]");
+  headerCells.forEach(th => {
+    th.addEventListener("click", () => {
+      const key = th.dataset.key;
+      sortAsc = sortKey === key ? !sortAsc : true;
+      sortKey = key;
+      headerCells.forEach(h => h.setAttribute("aria-sort", "none"));
+      th.setAttribute("aria-sort", sortAsc ? "ascending" : "descending");
+      rebuild();
     });
   });
 
-  // modo escuro com persistência
+  searchInput.addEventListener("input", filterRows);
+  searchInput.addEventListener("blur", () => pushRecentSearch(searchInput.value));
+  searchInput.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") pushRecentSearch(searchInput.value);
+  });
+
+  recentChips.addEventListener("click", (e) => {
+    const chip = e.target.closest(".recent-chip");
+    if(!chip) return;
+    searchInput.value = chip.dataset.term;
+    filterRows();
+    searchInput.focus();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+
+  favFilterBtn.addEventListener("click", () => {
+    onlyFavorites = !onlyFavorites;
+    favFilterBtn.setAttribute("aria-pressed", String(onlyFavorites));
+    filterRows();
+  });
+
+  document.querySelectorAll(".type-group .chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentType = btn.dataset.type;
+      document.querySelectorAll(".type-group .chip").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+      filterRows();
+    });
+  });
+
+  tbody.addEventListener("click", (e) => {
+    const favBtn = e.target.closest(".fav-btn");
+    if(favBtn){
+      const id = parseInt(favBtn.dataset.id, 10);
+      if(favorites.has(id)) favorites.delete(id); else favorites.add(id);
+      saveJSON("ted-favorites", [...favorites]);
+      favBtn.setAttribute("aria-pressed", favorites.has(id));
+      updateStats();
+      if(onlyFavorites) filterRows();
+      return;
+    }
+    const copyBtn = e.target.closest(".copy-btn");
+    if(copyBtn){
+      const code = copyBtn.dataset.code;
+      const id = copyBtn.dataset.id;
+      navigator.clipboard.writeText(code).then(() => {
+        copyBtn.classList.add("copied");
+        const original = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+        copyCounts[id] = (copyCounts[id] || 0) + 1;
+        saveJSON("ted-copy-counts", copyCounts);
+        updateStats();
+        setTimeout(() => { copyBtn.classList.remove("copied"); copyBtn.innerHTML = original; }, 1200);
+      }).catch(() => { copyBtn.setAttribute("aria-label", "Não foi possível copiar"); });
+      return;
+    }
+    const removeBtn = e.target.closest(".remove-btn");
+    if(removeBtn){
+      const id = parseInt(removeBtn.dataset.id, 10);
+      customBanks = customBanks.filter(b => b.id !== id);
+      saveJSON("ted-custom-banks", customBanks);
+      rebuild();
+    }
+  });
+
+  document.getElementById("export-csv").addEventListener("click", () => {
+    const rows = currentRows().filter(r => !r.classList.contains("hidden"));
+    const header = "Numero,Instituicao,Codigo TED,Tipo\n";
+    const lines = rows.map(r => {
+      const id = r.dataset.id;
+      const name = r.dataset.name.replace(/"/g,'""');
+      const code = r.dataset.code;
+      const type = r.dataset.type;
+      return `${id},"${name}",${code},${type}`;
+    });
+    const csv = header + lines.join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "codigos-ted-bancos.csv";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("print-btn").addEventListener("click", () => window.print());
+
+  const addBankToggle = document.getElementById("add-bank-toggle");
+  const addBankForm = document.getElementById("add-bank-form");
+  addBankToggle.addEventListener("click", () => {
+    const open = addBankForm.classList.toggle("open");
+    addBankToggle.setAttribute("aria-pressed", String(open));
+    if(open) document.getElementById("new-bank-name").focus();
+  });
+  document.getElementById("add-bank-cancel").addEventListener("click", () => {
+    addBankForm.classList.remove("open");
+    addBankToggle.setAttribute("aria-pressed", "false");
+    addBankForm.reset();
+  });
+  addBankForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("new-bank-name").value.trim();
+    const code = document.getElementById("new-bank-code").value.trim();
+    const type = document.getElementById("new-bank-type").value;
+    if(!name || !code) return;
+    const newId = 1000 + customBanks.length + 1;
+    customBanks.push({ id: newId, name, code, img: "", type, custom: true });
+    saveJSON("ted-custom-banks", customBanks);
+    addBankForm.reset();
+    addBankForm.classList.remove("open");
+    addBankToggle.setAttribute("aria-pressed", "false");
+    rebuild();
+  });
+
   const root = document.documentElement;
   const themeToggle = document.getElementById("theme-toggle");
   const savedTheme = localStorage.getItem("ted-theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   if(savedTheme === "dark" || (!savedTheme && prefersDark)){
     root.setAttribute("data-theme", "dark");
+    themeToggle.setAttribute("aria-pressed", "true");
   }
   themeToggle.addEventListener("click", () => {
     const isDark = root.getAttribute("data-theme") === "dark";
     if(isDark){
       root.removeAttribute("data-theme");
       localStorage.setItem("ted-theme", "light");
+      themeToggle.setAttribute("aria-pressed", "false");
     } else {
       root.setAttribute("data-theme", "dark");
       localStorage.setItem("ted-theme", "dark");
+      themeToggle.setAttribute("aria-pressed", "true");
     }
   });
 </script>
